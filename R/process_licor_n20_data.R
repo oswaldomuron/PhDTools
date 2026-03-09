@@ -193,10 +193,10 @@ process_licor_n20_data <- function(
                     "\nbefore injection =", round(Avg_bi,2), "ppb",
                     "\nafter injection =", round(Avg_ai,2), "ppb"))
 
-    axis.POSIXct(1, at=pretty(plot_data$date), format="%H:%M:%S",mgp = c(0,0.5,0), tcl = -0.5)
-    axis(2,las=2,at = pretty(plot_data$N2O_ppb),mgp = c(0,0.5,0), tcl = -0.5)
+    axis.POSIXct(1, at=pretty(plot_data$date), format="%H:%M:%S",mgp = c(0,0.5,0), tcl = -0.25)
+    axis(2,las=2,at = pretty(plot_data$N2O_ppb),mgp = c(0,0.5,0), tcl = -0.25)
     box()
-    mtext(expression(paste("N"[2],"O", "ppb")), side = 2, line = 2)
+    mtext(expression(paste("N"[2],"O ", "(ppb)")), side = 2, line = 2)
 
     usr <- par("usr")
     if(!is.null(bi_data)) rect(min(bi_data$date), usr[3], max(bi_data$date), usr[4],
