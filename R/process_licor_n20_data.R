@@ -152,6 +152,7 @@ process_licor_n20_data <- function(
          xlab="",
          ylab="",
          xaxt="n",
+         axes=F,
          main=paste(site_name,
                     "- Select the before injection region, then the after injection region"))
 
