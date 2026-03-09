@@ -147,7 +147,9 @@ process_licor_n20_data <- function(
     if(nrow(plot_data)==0) next
 
     plot(plot_data$date, plot_data$N2O_ppb,
-         type="l",
+         type="o",
+         pch=16,
+         cex=0.5,
          col="blue",
          xlab="",
          ylab="",
@@ -191,7 +193,12 @@ process_licor_n20_data <- function(
     # Save plot
     plot_file <- paste0(plot_folder, "/", "Site" = site_name, "_window_", i, ".png")
     png(plot_file, width=1200, height=800, res=150)
-    plot(plot_data$date, plot_data$N2O_ppb, type="l", col="blue", axes=F,
+    plot(plot_data$date, plot_data$N2O_ppb,
+         type="o",
+         pch=16,
+         cex=0.5,
+         col="blue",
+         axes=F,
          xlab="", ylab="",
          xaxt="n",
          main=paste(site_name,
