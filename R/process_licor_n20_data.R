@@ -101,24 +101,29 @@ process_licor_n20_data <- function(
   # -----------------------------
   # Function to select region interactively
   select_region <- function(plot_data, col="red"){
+
     cat("Click START of region (or Esc to skip)\n")
     p1 <- locator(1)
     if(is.null(p1)) return(NULL)
-    start <- p1$x
 
     cat("Click END of region\n")
     p2 <- locator(1)
     if(is.null(p2)) return(NULL)
-    end <- p2$x
 
-    # Draw shaded rectangle
+    # Convert locator x values back to POSIXct
+    start_time <- as.POSIXct(p1$x, origin="1970-01-01", tz="UTC")
+    end_time   <- as.POSIXct(p2$x, origin="1970-01-01", tz="UTC")
+
     usr <- par("usr")
-    rect(min(start,end), usr[3], max(start,end), usr[4],
+
+    rect(min(start_time,end_time), usr[3],
+         max(start_time,end_time), usr[4],
          col=adjustcolor(col, alpha.f=0.25), border=col)
 
-    x_range <- sort(c(start,end))
-    selected <- plot_data[plot_data$date >= as.POSIXct(x_range[1], origin="1970-01-01", tz="UTC") &
-                            plot_data$date <= as.POSIXct(x_range[2], origin="1970-01-01", tz="UTC"), ]
+    selected <- plot_data[
+      plot_data$date >= min(start_time,end_time) &
+        plot_data$date <= max(start_time,end_time), ]
+
     return(selected)
   }
 
@@ -137,9 +142,18 @@ process_licor_n20_data <- function(
     plot_data <- all_data[all_data$date >= start_time & all_data$date <= end_time, ]
     if(nrow(plot_data)==0) next
 
-    plot(plot_data$date, plot_data$N2O_ppb, type="l", col="blue",
-         xlab="Time", ylab="N2O (ppb)",
-         main=paste(site_name, "- Select the before injection region, then the after injection region"))
+    plot(plot_data$date, plot_data$N2O_ppb,
+         type="l",
+         col="blue",
+         xlab="Time",
+         ylab="N2O (ppb)",
+         xaxt="n",
+         main=paste(site_name,
+                    "- Select the before injection region, then the after injection region"))
+
+
+    axis.POSIXct(1, at=pretty(plot_data$date), format="%H:%M:%S")
+
 
     # BI region
     cat("Select the before injection (bi) region\n")
