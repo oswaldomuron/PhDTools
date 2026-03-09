@@ -149,14 +149,18 @@ process_licor_n20_data <- function(
     plot(plot_data$date, plot_data$N2O_ppb,
          type="l",
          col="blue",
-         xlab="Time",
-         ylab="N2O (ppb)",
+         xlab="",
+         ylab="",
          xaxt="n",
          main=paste(site_name,
                     "- Select the before injection region, then the after injection region"))
 
 
-    axis.POSIXct(1, at=pretty(plot_data$date), format="%H:%M:%S")
+    axis.POSIXct(1, at=pretty(plot_data$date), format="%H:%M:%S",mgp = c(0,0.5,0), tcl = -0.25)
+    axis(2,las=2,at = pretty(plot_data$N2O_ppb),mgp = c(0,0.5,0), tcl = -0.25)
+    box()
+    mtext(expression(paste("N"[2],"O ", "(ppb)")), side = 2, line = 2)
+    mtext("Time", side = 1, line = 1.8)
 
 
     # BI region
@@ -187,7 +191,7 @@ process_licor_n20_data <- function(
     plot_file <- paste0(plot_folder, "/", "Site" = site_name, "_window_", i, ".png")
     png(plot_file, width=1200, height=800, res=150)
     plot(plot_data$date, plot_data$N2O_ppb, type="l", col="blue", axes=F,
-         xlab="Time", ylab="",
+         xlab="", ylab="",
          xaxt="n",
          main=paste(site_name,
                     "\nbefore injection =", round(Avg_bi,2), "ppb",
@@ -197,7 +201,7 @@ process_licor_n20_data <- function(
     axis(2,las=2,at = pretty(plot_data$N2O_ppb),mgp = c(0,0.5,0), tcl = -0.25)
     box()
     mtext(expression(paste("N"[2],"O ", "(ppb)")), side = 2, line = 2)
-    mtext("Time", side = 1, line = 2)
+    mtext("Time", side = 1, line = 1.8)
 
     usr <- par("usr")
     if(!is.null(bi_data)) rect(min(bi_data$date), usr[3], max(bi_data$date), usr[4],
