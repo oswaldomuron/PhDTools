@@ -193,7 +193,7 @@ process_licor_n20_data <- function(
                     "\nbefore injection =", round(Avg_bi,2), "ppb",
                     "\nafter injection =", round(Avg_ai,2), "ppb"))
 
-    axis.POSIXct(1, at=pretty(plot_data$date), format="%H:%M:%S")
+    axis.POSIXct(1, at=pretty(plot_data$date), format="%H:%M:%S",mgp = c(0,0.5,0), tck = -0.02)
 
 
     usr <- par("usr")
