@@ -120,6 +120,10 @@ process_licor_n20_data <- function(
          max(start_time,end_time), usr[4],
          col=adjustcolor(col, alpha.f=0.25), border=col)
 
+
+    # Pause so user can confirm selection
+    Sys.sleep(3)
+
     selected <- plot_data[
       plot_data$date >= min(start_time,end_time) &
         plot_data$date <= max(start_time,end_time), ]
