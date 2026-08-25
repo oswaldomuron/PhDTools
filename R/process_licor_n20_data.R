@@ -103,11 +103,11 @@ process_licor_n20_data <- function(
   select_region <- function(plot_data, col="red"){
 
     cat("Click START of region (or Esc to skip)\n")
-    p1 <- locator(1)
+    p1 <- locator(1, type = "o")
     if(is.null(p1)) return(NULL)
 
     cat("Click END of region\n")
-    p2 <- locator(1)
+    p2 <- locator(1, type = "o")
     if(is.null(p2)) return(NULL)
 
     # Convert locator x values back to POSIXct
